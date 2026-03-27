@@ -18,6 +18,9 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
+# Set dummy DATABASE_URL for build (SSR pages need Prisma at build time)
+ENV DATABASE_URL="file:./prisma/dev.db"
+
 # Build Next.js application
 RUN npm run build
 
