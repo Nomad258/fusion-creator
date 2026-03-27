@@ -20,6 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Clear Docker credentials
+        run: |
+          docker logout docker.io 2>/dev/null || true
+          docker logout registry-1.docker.io 2>/dev/null || true
+          rm -f ~/.docker/config.json
+
       - name: Build image
         run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
 
