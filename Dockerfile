@@ -6,6 +6,9 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+# Install OpenSSL (required by Prisma on Alpine)
+RUN apk add --no-cache openssl openssl-dev
+
 # Copy package files
 COPY package*.json ./
 
@@ -28,6 +31,9 @@ RUN npm run build
 FROM node:22-alpine AS runner
 
 WORKDIR /app
+
+# Install OpenSSL 1.1 compatibility (required by Prisma client on Alpine)
+RUN apk add --no-cache openssl libssl3
 
 # Set environment to production
 ENV NODE_ENV=production
