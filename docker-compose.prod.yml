@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 2r-fusion-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:./prisma/dev.db
+      - NEXTAUTH_SECRET=xt7Kp9mQ2vR8nW3jL6bY1cA4fH0dS5eU7gI2oP8qT3wX6zA
+      - NEXTAUTH_URL=http://72.62.23.106:3000
+    volumes:
+      - fusion_data:/app/prisma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', (r) => {if (r.statusCode >= 400) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  fusion_data:
+    driver: local
