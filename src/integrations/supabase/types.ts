@@ -31,7 +31,7 @@ export type Database = {
         Insert: {
           createdAt?: string
           data?: string | null
-          id?: string
+          id: string
           isDismissed?: boolean
           isRead?: boolean
           message: string
@@ -73,6 +73,7 @@ export type Database = {
           employeeId: string | null
           evidence: string | null
           id: string
+          notes: string | null
           referenceId: string | null
           referenceType: string | null
           resolvedAt: string | null
@@ -89,7 +90,8 @@ export type Database = {
           details?: string | null
           employeeId?: string | null
           evidence?: string | null
-          id?: string
+          id: string
+          notes?: string | null
           referenceId?: string | null
           referenceType?: string | null
           resolvedAt?: string | null
@@ -97,7 +99,7 @@ export type Database = {
           severity?: string
           status?: string
           type: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           assignedTo?: string | null
@@ -107,6 +109,7 @@ export type Database = {
           employeeId?: string | null
           evidence?: string | null
           id?: string
+          notes?: string | null
           referenceId?: string | null
           referenceType?: string | null
           resolvedAt?: string | null
@@ -139,7 +142,7 @@ export type Database = {
           action: string
           anomalyId: string
           createdAt?: string
-          id?: string
+          id: string
           notes?: string | null
           reviewerId: string
         }
@@ -187,7 +190,7 @@ export type Database = {
           createdAt?: string
           entityId?: string | null
           entityType: string
-          id?: string
+          id: string
           ipAddress?: string | null
           newValue?: string | null
           notes?: string | null
@@ -218,6 +221,95 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          author_initials: string | null
+          author_name: string | null
+          category: string | null
+          content: Json
+          created_at: string
+          excerpt: string | null
+          id: string
+          locale: string
+          meta_description: string | null
+          published: boolean
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_initials?: string | null
+          author_name?: string | null
+          category?: string | null
+          content?: Json
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          locale?: string
+          meta_description?: string | null
+          published?: boolean
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_initials?: string | null
+          author_name?: string | null
+          category?: string | null
+          content?: Json
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          locale?: string
+          meta_description?: string | null
+          published?: boolean
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          status: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          status?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       Complaint: {
         Row: {
           createdAt: string
@@ -236,14 +328,14 @@ export type Database = {
           createdAt?: string
           description: string
           guestId: string
-          id?: string
+          id: string
           resolution?: string | null
           resolvedAt?: string | null
           resolvedBy?: string | null
           severity?: string
           status?: string
           type: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           createdAt?: string
@@ -268,6 +360,51 @@ export type Database = {
           },
         ]
       }
+      contact_submissions: {
+        Row: {
+          company: string | null
+          contacted_at: string | null
+          created_at: string
+          email: string
+          id: string
+          language: string
+          message: string | null
+          name: string
+          page_url: string | null
+          service: string | null
+          timeline: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          company?: string | null
+          contacted_at?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          language?: string
+          message?: string | null
+          name: string
+          page_url?: string | null
+          service?: string | null
+          timeline?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          company?: string | null
+          contacted_at?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          language?: string
+          message?: string | null
+          name?: string
+          page_url?: string | null
+          service?: string | null
+          timeline?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       Delivery: {
         Row: {
           createdAt: string
@@ -291,7 +428,7 @@ export type Database = {
           deliveryNumber?: string | null
           discrepancies?: string | null
           expectedAt?: string | null
-          id?: string
+          id: string
           isLate?: boolean
           notes?: string | null
           purchaseOrderId?: string | null
@@ -301,7 +438,7 @@ export type Database = {
           status?: string
           supplierId: string
           temperatureCheck?: number | null
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           createdAt?: string
@@ -378,7 +515,7 @@ export type Database = {
           description?: string | null
           descriptionFr?: string | null
           dietaryTags?: string | null
-          id?: string
+          id: string
           imageUrl?: string | null
           ingredients?: string | null
           isAvailable?: boolean
@@ -397,7 +534,7 @@ export type Database = {
           sortOrder?: number
           spiceLevel?: number | null
           totalOrdered?: number
-          updatedAt?: string
+          updatedAt: string
           upsellDishIds?: string | null
         }
         Update: {
@@ -465,13 +602,13 @@ export type Database = {
           firstName: string
           hireDate: string
           hourlyRate?: number | null
-          id?: string
+          id: string
           isActive?: boolean
           lastName: string
           notes?: string | null
           phone?: string | null
           position: string
-          updatedAt?: string
+          updatedAt: string
           userId: string
         }
         Update: {
@@ -520,7 +657,7 @@ export type Database = {
           confidence?: number
           createdAt?: string
           data: string
-          id?: string
+          id: string
           methodology?: string | null
           period: string
           status?: string
@@ -574,7 +711,7 @@ export type Database = {
           dateOfBirth?: string | null
           email?: string | null
           firstName: string
-          id?: string
+          id: string
           isActive?: boolean
           lastName: string
           lastVisitAt?: string | null
@@ -587,7 +724,7 @@ export type Database = {
           tier?: string
           totalSpent?: number
           totalVisits?: number
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           anniversary?: string | null
@@ -622,7 +759,7 @@ export type Database = {
         }
         Insert: {
           guestId: string
-          id?: string
+          id: string
           tag: string
         }
         Update: {
@@ -667,7 +804,7 @@ export type Database = {
           costPerUnit?: number
           createdAt?: string
           currentStock?: number
-          id?: string
+          id: string
           isActive?: boolean
           isPerishable?: boolean
           lastCountedAt?: string | null
@@ -679,7 +816,7 @@ export type Database = {
           sku?: string | null
           storageLocation?: string | null
           unit: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           barcode?: string | null
@@ -732,7 +869,7 @@ export type Database = {
           createdAt?: string
           currency?: string
           dueDate?: string | null
-          id?: string
+          id: string
           invoiceNumber: string
           notes?: string | null
           paidAmount?: number
@@ -744,7 +881,7 @@ export type Database = {
           taxAmount?: number
           totalAmount: number
           type?: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           approvedAt?: string | null
@@ -784,6 +921,119 @@ export type Database = {
           },
         ]
       }
+      kpis: {
+        Row: {
+          actual: number | null
+          created_at: string
+          frequency: string | null
+          id: string
+          name: string
+          notes: string | null
+          owner_id: string
+          period: string | null
+          service_line: string | null
+          target: number | null
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          actual?: number | null
+          created_at?: string
+          frequency?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          owner_id: string
+          period?: string | null
+          service_line?: string | null
+          target?: number | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          actual?: number | null
+          created_at?: string
+          frequency?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          owner_id?: string
+          period?: string | null
+          service_line?: string | null
+          target?: number | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kpis_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lead_submissions: {
+        Row: {
+          assigned_to: string | null
+          company: string | null
+          consent_given: boolean
+          consent_text: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          ip_hash: string | null
+          kind: string
+          locale: string
+          message: string | null
+          payload: Json
+          phone: string | null
+          processed_at: string | null
+          source_url: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          company?: string | null
+          consent_given?: boolean
+          consent_text: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          ip_hash?: string | null
+          kind: string
+          locale?: string
+          message?: string | null
+          payload?: Json
+          phone?: string | null
+          processed_at?: string | null
+          source_url?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          company?: string | null
+          consent_given?: boolean
+          consent_text?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          ip_hash?: string | null
+          kind?: string
+          locale?: string
+          message?: string | null
+          payload?: Json
+          phone?: string | null
+          processed_at?: string | null
+          source_url?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       Menu: {
         Row: {
           availableFrom: string | null
@@ -805,14 +1055,14 @@ export type Database = {
           availableTo?: string | null
           createdAt?: string
           description?: string | null
-          id?: string
+          id: string
           isActive?: boolean
           isVipOnly?: boolean
           name: string
           slug: string
           sortOrder?: number
           type?: string
-          updatedAt?: string
+          updatedAt: string
           venueId: string
         }
         Update: {
@@ -859,7 +1109,7 @@ export type Database = {
           createdAt?: string
           description?: string | null
           descriptionFr?: string | null
-          id?: string
+          id: string
           imageUrl?: string | null
           isActive?: boolean
           menuId: string
@@ -893,6 +1143,56 @@ export type Database = {
           },
         ]
       }
+      milestones: {
+        Row: {
+          client_project: string | null
+          created_at: string
+          due_date: string | null
+          id: string
+          notes: string | null
+          owner_id: string
+          percent_complete: number
+          start_date: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          client_project?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          owner_id: string
+          percent_complete?: number
+          start_date?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          client_project?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          owner_id?: string
+          percent_complete?: number
+          start_date?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "milestones_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       OrderItem: {
         Row: {
           complimentaryReason: string | null
@@ -919,7 +1219,7 @@ export type Database = {
           createdAt?: string
           dishId: string
           firedAt?: string | null
-          id?: string
+          id: string
           isComplimentary?: boolean
           isVoid?: boolean
           modifiers?: string | null
@@ -1011,7 +1311,7 @@ export type Database = {
           employeeId?: string | null
           guestCount?: number
           guestId?: string | null
-          id?: string
+          id: string
           isComplimentary?: boolean
           isVoid?: boolean
           kitchenNotes?: string | null
@@ -1027,7 +1327,7 @@ export type Database = {
           tipAmount?: number
           totalAmount?: number
           type?: string
-          updatedAt?: string
+          updatedAt: string
           voidedAt?: string | null
           voidedBy?: string | null
           voidReason?: string | null
@@ -1101,7 +1401,7 @@ export type Database = {
         Insert: {
           amount: number
           createdAt?: string
-          id?: string
+          id: string
           invoiceId: string
           method: string
           notes?: string | null
@@ -1143,7 +1443,7 @@ export type Database = {
           authorId: string
           createdAt?: string
           employeeId: string
-          id?: string
+          id: string
           note: string
           type?: string
         }
@@ -1182,7 +1482,7 @@ export type Database = {
           capacity: number
           createdAt?: string
           description?: string | null
-          id?: string
+          id: string
           isActive?: boolean
           minSpend?: number | null
           name: string
@@ -1209,6 +1509,36 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          active: boolean
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          role: string | null
+        }
+        Insert: {
+          active?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id: string
+          role?: string | null
+        }
+        Update: {
+          active?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          role?: string | null
+        }
+        Relationships: []
+      }
       PurchaseOrder: {
         Row: {
           approvedAt: string | null
@@ -1230,7 +1560,7 @@ export type Database = {
           approvedBy?: string | null
           createdAt?: string
           expectedDate?: string | null
-          id?: string
+          id: string
           isForecastBased?: boolean
           notes?: string | null
           orderNumber: string
@@ -1238,7 +1568,7 @@ export type Database = {
           submittedAt?: string | null
           supplierId: string
           totalAmount?: number
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           approvedAt?: string | null
@@ -1276,7 +1606,7 @@ export type Database = {
           unitPrice: number
         }
         Insert: {
-          id?: string
+          id: string
           inventoryItemId: string
           notes?: string | null
           purchaseOrderId: string
@@ -1328,12 +1658,12 @@ export type Database = {
           createdAt?: string
           difficulty?: string
           dishId: string
-          id?: string
+          id: string
           instructions?: string | null
           notes?: string | null
           prepTimeMinutes?: number | null
           servings?: number
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           cookTimeMinutes?: number | null
@@ -1371,7 +1701,7 @@ export type Database = {
         }
         Insert: {
           costPerUnit?: number | null
-          id?: string
+          id: string
           inventoryItemId?: string | null
           isOptional?: boolean
           name: string
@@ -1432,7 +1762,7 @@ export type Database = {
           decidedBy?: string | null
           description: string
           forecastId?: string | null
-          id?: string
+          id: string
           priority?: string
           rationale?: string | null
           status?: string
@@ -1499,7 +1829,7 @@ export type Database = {
           guestId?: string | null
           guestName: string
           guestPhone?: string | null
-          id?: string
+          id: string
           isPrivateRoom?: boolean
           isVip?: boolean
           noShowCount?: number
@@ -1512,7 +1842,7 @@ export type Database = {
           status?: string
           tableId?: string | null
           timeSlot: string
-          updatedAt?: string
+          updatedAt: string
           venueId?: string | null
         }
         Update: {
@@ -1575,7 +1905,7 @@ export type Database = {
         Insert: {
           createdAt?: string
           expiresAt: string
-          id?: string
+          id: string
           token: string
           userId: string
         }
@@ -1610,11 +1940,11 @@ export type Database = {
         Insert: {
           category?: string
           createdAt?: string
-          id?: string
+          id: string
           key: string
           label?: string | null
           type?: string
-          updatedAt?: string
+          updatedAt: string
           value: string
         }
         Update: {
@@ -1643,7 +1973,7 @@ export type Database = {
           createdAt?: string
           employeeId: string
           endTime?: string | null
-          id?: string
+          id: string
           notes?: string | null
           startTime: string
           status?: string
@@ -1687,7 +2017,7 @@ export type Database = {
           createdAt?: string
           discoveredBy?: string | null
           estimatedValue: number
-          id?: string
+          id: string
           inventoryItemId: string
           notes?: string | null
           quantity: number
@@ -1744,7 +2074,7 @@ export type Database = {
           createdAt?: string
           deliveryId?: string | null
           expiresAt?: string | null
-          id?: string
+          id: string
           inventoryItemId: string
           notes?: string | null
           quantity: number
@@ -1804,7 +2134,7 @@ export type Database = {
         }
         Insert: {
           createdAt?: string
-          id?: string
+          id: string
           inventoryItemId: string
           newStock: number
           notes?: string | null
@@ -1870,7 +2200,7 @@ export type Database = {
           createdAt?: string
           deliveryDays?: string | null
           email?: string | null
-          id?: string
+          id: string
           isActive?: boolean
           isPreferred?: boolean
           leadTimeDays?: number
@@ -1881,7 +2211,7 @@ export type Database = {
           rating?: number
           reliabilityScore?: number
           taxId?: string | null
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           address?: string | null
@@ -1923,7 +2253,7 @@ export type Database = {
         }
         Insert: {
           createdAt?: string
-          id?: string
+          id: string
           inventoryItemId: string
           isPreferred?: boolean
           lastOrderedAt?: string | null
@@ -1934,7 +2264,7 @@ export type Database = {
           supplierId: string
           supplierSku?: string | null
           unitPrice: number
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           createdAt?: string
@@ -1985,7 +2315,7 @@ export type Database = {
         Insert: {
           capacity: number
           createdAt?: string
-          id?: string
+          id: string
           isActive?: boolean
           number: number
           posX?: number | null
@@ -2018,6 +2348,50 @@ export type Database = {
           },
         ]
       }
+      tasks: {
+        Row: {
+          created_at: string
+          due_date: string | null
+          id: string
+          notes: string | null
+          owner_id: string
+          priority: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          owner_id: string
+          priority?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          owner_id?: string
+          priority?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       User: {
         Row: {
           avatarUrl: string | null
@@ -2036,14 +2410,14 @@ export type Database = {
           avatarUrl?: string | null
           createdAt?: string
           email: string
-          id?: string
+          id: string
           isActive?: boolean
           lastLoginAt?: string | null
           name?: string | null
           passwordHash: string
           phone?: string | null
           role?: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           avatarUrl?: string | null
@@ -2084,14 +2458,14 @@ export type Database = {
           currency?: string
           description?: string | null
           email?: string | null
-          id?: string
+          id: string
           isActive?: boolean
           name: string
           phone?: string | null
           settings?: string | null
           slug: string
           timezone?: string
-          updatedAt?: string
+          updatedAt: string
         }
         Update: {
           address?: string | null
